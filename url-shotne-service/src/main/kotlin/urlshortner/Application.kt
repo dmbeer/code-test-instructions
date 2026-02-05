@@ -1,6 +1,7 @@
 package com.example.urlshortner
 
 import com.example.urlshortner.config.configureHTTP
+import com.example.urlshortner.config.configureRequestValidation
 import com.example.urlshortner.config.configureSerialization
 import com.example.urlshortner.routes.configureRouting
 import io.ktor.server.application.*
@@ -16,4 +17,5 @@ fun Application.module() {
     configureSerialization()
     configureHTTP()
     configureRouting(clock)
+    configureRequestValidation()
 }
