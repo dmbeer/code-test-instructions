@@ -1,4 +1,4 @@
-package com.example.urlshortner
+package com.example.urlshotrner
 
 import com.example.urlshotrner.config.configureHTTP
 import com.example.urlshotrner.config.configureRouting

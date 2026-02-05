@@ -1,4 +1,4 @@
-package urlshotrner.config
+package com.example.urlshotrner.config
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.calllogging.*

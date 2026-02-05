@@ -1,7 +1,8 @@
 package com.example
 
-import com.example.urlshortner.module
+import com.example.urlshotrner.module
 import io.ktor.client.request.*
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlin.test.Test
@@ -16,6 +17,7 @@ class ApplicationTest {
         }
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
+            assertEquals("Hello World!", bodyAsText())
         }
     }
 
