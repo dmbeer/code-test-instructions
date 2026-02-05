@@ -1,4 +1,4 @@
-package com.example.urlshotrner.config
+package com.example.urlshortner.config
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.requestvalidation.RequestValidation

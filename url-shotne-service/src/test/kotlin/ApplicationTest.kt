@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.urlshotrner.module
+import com.example.urlshortner.module
 import io.ktor.client.request.*
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*

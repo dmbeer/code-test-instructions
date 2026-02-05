@@ -1,4 +1,4 @@
-package com.example.urlshotrner.config
+package com.example.urlshortner.config
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

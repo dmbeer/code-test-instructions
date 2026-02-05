@@ -1,8 +1,8 @@
-package com.example.urlshotrner
+package com.example.urlshortner
 
-import com.example.urlshotrner.config.configureHTTP
-import com.example.urlshotrner.config.configureRouting
-import com.example.urlshotrner.config.configureSerialization
+import com.example.urlshortner.config.configureHTTP
+import com.example.urlshortner.config.configureRouting
+import com.example.urlshortner.config.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.netty.EngineMain
 
