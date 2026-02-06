@@ -15,6 +15,7 @@ import io.ktor.server.testing.testApplication
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.statement.bodyAsText
 import io.ktor.client.statement.content
 import java.time.Clock
 
@@ -57,6 +58,7 @@ class ShortenRoutesTest {
             contentType(ContentType.Application.Json)
             setBody(URLShortRequest(""))
         }
-        assertEquals(HttpStatusCode.InternalServerError, response.status)
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+        assertEquals("{\"message\":\"Validation failed for URLShortRequest(fullUrl=, customAlias=). Reasons: A URL is required to Shorten\",\"detailedMessage\":\"null\"}", response.bodyAsText())
     }
 }
