@@ -19,6 +19,7 @@ class ShortenRoutesTest {
 
     @Test
     fun `Test Post Url Shorten No Alias`() = testApplication {
+        configure()
         application {
             module()
         }
@@ -36,6 +37,7 @@ class ShortenRoutesTest {
 
     @Test
     fun `Test Post Url Shorten with Alias`() = testApplication {
+        configure()
         application {
             module()
         }
@@ -51,6 +53,7 @@ class ShortenRoutesTest {
 
     @Test
     fun `Test with blank fullUrl`() = testApplication {
+        configure()
         application {
             module()
         }

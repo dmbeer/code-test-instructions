@@ -5,8 +5,8 @@ import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import java.time.Clock
 
-fun Application.configureRouting(clock: Clock, shortenerService: ShortenerService) {
+fun Application.configureRouting(clock: Clock) {
     routing {
-        shortenRoutes(shortenerService)
+        shortenRoutes()
     }
 }
