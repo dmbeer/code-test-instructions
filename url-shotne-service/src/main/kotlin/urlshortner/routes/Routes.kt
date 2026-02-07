@@ -8,5 +8,7 @@ import java.time.Clock
 fun Application.configureRouting(clock: Clock) {
     routing {
         shortenRoutes()
+        urlsRoutes()
+        aliasRoutes()
     }
 }
