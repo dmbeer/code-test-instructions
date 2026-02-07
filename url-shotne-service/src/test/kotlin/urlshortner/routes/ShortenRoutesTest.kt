@@ -1,24 +1,15 @@
 package urlshortner.routes
 
-import com.example.urlshortner.config.configureSerialization
 import com.example.urlshortner.model.URLShortRequest
 import com.example.urlshortner.module
-import com.example.urlshortner.routes.configureRouting
-import io.ktor.client.call.body
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.contentType
-import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.testing.testApplication
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.testing.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.statement.bodyAsText
-import io.ktor.client.statement.content
-import java.time.Clock
-
 
 class ShortenRoutesTest {
 
