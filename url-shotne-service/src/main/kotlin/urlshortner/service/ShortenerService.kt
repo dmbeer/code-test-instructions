@@ -1,12 +1,13 @@
 package com.example.urlshortner.service
 
+import com.example.urlshortner.model.mongodb.CustomAlias
 import com.example.urlshortner.model.mongodb.UrlRequests
+import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.example.urlshortner.utils.generateRandomString
-import org.koin.java.KoinJavaComponent.inject
 import java.net.URI
 
-class ShortenerService(val repository: UrlRequestsRepository) {
+class ShortenerService(val urlRequestsRepository: UrlRequestsRepository, val customAliasRepository: CustomAliasRepository) {
 
     fun shortenURL(fullURL: String, alias: String): String {
         var shortened = ""
@@ -16,10 +17,12 @@ class ShortenerService(val repository: UrlRequestsRepository) {
             val alias: String = generateRandomString()
             val uri = URI(host)
             shortened = uri.resolve(alias).toString()
-            repository.insertOne(UrlRequests(null, fullURL, alias, shortened))
+            urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
         } else {
             val uri = URI(host)
             shortened = uri.resolve(alias).toString()
+            urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
+            customAliasRepository.insertOne(CustomAlias(null, alias))
         }
         return shortened
     }
