@@ -1,14 +1,18 @@
 package urlshortner.routes
 
+import com.example.urlshortner.model.ShortUrlResponse
 import com.example.urlshortner.model.URLShortRequest
 import com.example.urlshortner.module
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.client.statement.readRawBytes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
+import kotlinx.serialization.json.Json
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class ShortenRoutesTest {
@@ -21,9 +25,13 @@ class ShortenRoutesTest {
         client = createClient { install(ContentNegotiation) { json() } }
         val response = client.post("/shorten") {
             contentType(ContentType.Application.Json)
-            setBody(URLShortRequest("http://localhost:8080/long/url"))
+            setBody(URLShortRequest("https://www.example.com/long/url"))
         }
+        val body = response.bodyAsText()
+        val shortUrlResponse = Json.decodeFromString<ShortUrlResponse>(body)
         assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
+        assertEquals("https://www.example.com", shortUrlResponse.shortUrl.substringBeforeLast('/'))
     }
 
     @Test
@@ -34,9 +42,11 @@ class ShortenRoutesTest {
         val client = createClient { install(ContentNegotiation) { json() } }
         val response = client.post("/shorten") {
             contentType(ContentType.Application.Json)
-            setBody(URLShortRequest("http://localhost:8080/long/url", "job"))
+            setBody(URLShortRequest("https://example.com/long/url", "job"))
         }
         assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
+        assertContains("{\"shortUrl\":\"https://example.com/job\"}", response.bodyAsText())
     }
 
     @Test
