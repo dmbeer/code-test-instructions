@@ -1,4 +1,5 @@
-import {useState} from "react";
+import {Component, useState} from "react";
+import {Header} from "~/components/Header";
 
 export function Welcome() {
     const [url, setUrl] = useState("");
@@ -6,12 +7,7 @@ export function Welcome() {
     return (
         <main className="flex items-center justify-center pt-16 pb-4">
             <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-                <header className="flex flex-col items-center gap-9">
-                    <div className="w-[500px] max-w-[100vw] p-4">
-                        <h1 className="text-3xl font-bold text-4xl leading-tight">URL Shortener</h1>
-                        <h3>What to shorten a long URL</h3>
-                    </div>
-                </header>
+                <Header />
                 <div className="flex flex-col md:flex-row gap-8 justify-center items-start">
                     <div className="w-full md:w-96 rounded-xl border border-gray-700 p-6 text-center">
                         <ul>
