@@ -32,6 +32,7 @@ fun Application.module() {
     }
     configureSerialization()
     configureHTTP()
+    configureCors()
     configureRouting(clock)
     configureRequestValidation()
     configureStatusPage()

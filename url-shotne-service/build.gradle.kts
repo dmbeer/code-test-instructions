@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.mongodb.bson.kotlinx)
     implementation(libs.koin.ktor)
     implementation(libs.koin.sl4j)
+    implementation(libs.ktor.server.cors)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.mock.test)

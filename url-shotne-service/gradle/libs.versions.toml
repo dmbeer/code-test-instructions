@@ -18,6 +18,7 @@ ktor-server-status-pages = {module = "io.ktor:ktor-server-status-pages", version
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "ktor" }
+ktor-server-cors = {module = "io.ktor:ktor-server-cors", version.ref = "ktor"}
 mongodb = {module = "org.mongodb:mongodb-driver-kotlin-sync", version.ref = "kotlin-mongodb-version"}
 mongodb-bson-kotlinx = { module = "org.mongodb:bson-kotlinx", version.ref = "kotlin-mongodb-version"}
 koin-ktor = {module = "io.insert-koin:koin-ktor", version.ref = "koin-version"}
