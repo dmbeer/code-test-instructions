@@ -27,10 +27,8 @@ export function ListURLS() {
     }
 
     useEffect(() => {
-        if (urls.length === 0) {
-            getURLs();
-        }
-    });
+        getURLs();
+    }, []);
 
     async function handleDelete(alias: string) {
         try {

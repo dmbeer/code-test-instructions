@@ -1,0 +1,46 @@
+version: "3.9"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+
+services:
+  backend:
+    container_name: url-shortener-service
+    build:
+      context: ./url-shotne-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+    depends_on:
+      - mongo
+    restart: unless-stopped
+  frontend:
+    container_name: url-shortener-frontend
+    build:
+      context: ./url-shortner-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+  mongo:
+    image: mongodb/mongodb-community-server:8.2-ubi9
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
