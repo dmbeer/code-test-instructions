@@ -1,8 +1,28 @@
 import {Component, useState} from "react";
 import {Header} from "~/components/Header";
+import ShortnerService from "~/api/ShortnerService";
+import axios from "axios";
+import {Link} from "react-router";
 
 export function Welcome() {
-    const [url, setUrl] = useState("");
+    const [fullUrl, setFullUrl] = useState("");
+    const [alias, setAlias] = useState("");
+    const [shortenedURL, setShortenedURL] = useState<ShortenURLResponse>();
+
+    async function handleSubmit() {
+
+        try {
+            const response = await ShortnerService.getShortURL(fullUrl, alias);
+            setShortenedURL(response);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error("API error:", error.response?.data);
+                console.error("Status:", error.response?.status);
+            } else {
+                console.error("Unexpected error:", error);
+            }
+        }
+    }
 
     return (
         <main className="flex items-center justify-center pt-16 pb-4">
@@ -13,14 +33,12 @@ export function Welcome() {
                         <ul>
                             {resources.map(({text, icon}) => (
                                 <li>
-                                    <a
-                                        className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                                        target="_blank"
-                                        rel="noreferrer"
+                                    <p
+                                        className="group flex items-center gap-3 self-stretch p-3 leading-normal dark:text-blue-500"
                                     >
                                         {icon}
                                         {text}
-                                    </a>
+                                    </p>
                                 </li>
                             ))}
                         </ul>
@@ -30,23 +48,42 @@ export function Welcome() {
                             <input
                                 type="text"
                                 placeholder="Paste your long URL here..."
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
+                                value={fullUrl}
+                                onChange={(e) => setFullUrl(e.target.value)}
                                 className="w-full rounded-lg bg-gray-900 border border-gray-600 px-10 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                             <input
                                 type="text"
                                 placeholder="Paste your long URL here..."
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
+                                value={alias}
+                                onChange={(e) => setAlias(e.target.value)}
                                 className="w-full rounded-lg bg-gray-900 border border-gray-600 px-10 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
-                        <button className="mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition">
+                        <button
+                            className="mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition"
+                            onClick={handleSubmit}
+                        >
                             Shorten URL
                         </button>
                     </div>
                 </div>
+                {shortenedURL && (
+                    <div className="w-full md:w-96 rounded-xl border border-gray-700 p-6 text-center">
+                        {shortenedURL?.shortUrl !== undefined && (
+                            <p className="text-sm">
+                                {shortenedURL.shortUrl}
+                            </p>
+                        )}
+                    </div>
+                )}
+                <div>
+                    <p>
+                        List Urls
+                        <Link to="/list-urls">List URLS</Link>
+                    </p>
+                </div>
+
             </div>
         </main>
     );
@@ -54,7 +91,7 @@ export function Welcome() {
 
 const resources = [
     {
-        text: "Get a Shortened URL in the box below",
+        text: "Get a Shortened URL in the box to the left",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,7 @@
 export function Header() {
     return (
         <header className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white">
+            <h1 className="text-4xl md:text-5xl font-bold text-blue-500">
                 URL Shortener
             </h1>
 
