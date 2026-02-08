@@ -78,10 +78,9 @@ export function Welcome() {
                     </div>
                 )}
                 <div>
-                    <p>
-                        List Urls
-                        <Link to="/list-urls">List URLS</Link>
-                    </p>
+                    <Link className="px-4 mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition" to="/list-urls">
+                        List URLS
+                    </Link>
                 </div>
 
             </div>

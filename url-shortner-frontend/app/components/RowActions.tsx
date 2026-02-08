@@ -1,12 +1,9 @@
 interface RowActionsProps {
-    item: URLSResponse;
+    item: URLSResponse,
+    onRequestDelete: (item: URLSResponse) => void;
 }
 
-const RowActions: React.FC<RowActionsProps> = ({ item }) => {
-    const handleCopy = async () => {
-        await navigator.clipboard.writeText(item.shortUrl);
-        alert("Copied!");
-    };
+const RowActions: React.FC<RowActionsProps> = ({ item, onRequestDelete }) => {
 
     const handleDelete = () => {
         // confirm + API call
@@ -17,7 +14,7 @@ const RowActions: React.FC<RowActionsProps> = ({ item }) => {
         <div className="flex gap-2">
             <button
                 className="text-red-600 hover:underline"
-                onClick={handleDelete}
+                onClick={() => onRequestDelete(item)}
             >
                 Delete
             </button>

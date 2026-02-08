@@ -24,6 +24,10 @@ class ShortnerServiceAPI {
         const response = await axios.get<URLSResponse[]>(`${serverUrl}/urls`);
         return response.data
     }
+
+    async deleteAlias(alias: string) {
+        return await axios.delete(`${serverUrl}/${alias}`)
+    }
 }
 
 export default new ShortnerServiceAPI();
