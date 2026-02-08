@@ -40,9 +40,11 @@ The backend is built using kotlin and ktor for a quick and lightwieight server.
 Full validation and API Error Handling has been built.
 There are a number of Tests as well to cover the functionality.
 
-<img width="869" height="610" alt="Screenshot 2026-02-08 at 21 09 00" src="https://github.com/user-attachments/assets/33d6917f-e4de-4db6-8fad-c0aa41c67026" />
+<img width="1164" height="734" alt="Screenshot 2026-02-08 at 21 15 46" src="https://github.com/user-attachments/assets/996ed629-d792-4a47-add8-ed0983ff9b5d" />
 
-<img width="869" height="610" alt="Screenshot 2026-02-08 at 21 09 00" src="https://github.com/user-attachments/assets/032bf6c7-ceb5-4d6a-b3cb-7ff0b81ab50b" />
+
+<img width="1164" height="734" alt="Screenshot 2026-02-08 at 21 15 09" src="https://github.com/user-attachments/assets/1268ca49-adf4-48c6-8837-c2884db7e754" />
+
 
 
 
