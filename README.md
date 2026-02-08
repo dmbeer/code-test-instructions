@@ -1,34 +1,50 @@
-# URL Shortener Coding Task
+# URL Shortener
 
-## Task
+This a simple url shortener front and backend service storing requests in a mongodb datbase.
+You will be able to provide a long url to shorten. You can use a custom alias as well. 
+You can manage the urls generated as well.
 
-Build a simple **URL shortener** in a **preferably JVM-based language** (e.g. Java, Kotlin).
+## To use the project
+Clone the project from here.
+Make sure Docker is Installed
+open a terminal and run docker compose up --build -d
 
-It should:
+This will build and launch 3 containers. 
+1. MongoDB 8 comunity and create a volume local to the project for storing data.
+2. A frontend accessible at localhost:3000
+3. A backend API written in kotlin using ktor running at localhost:8080
 
-- Accept a full URL and return a shortened URL.
-- A shortened URL should have a randomly generated alias.
-- Allow a user to **customise the shortened URL** if they want to (e.g. user provides `my-custom-alias` instead of a random string).
-- Persist the shortened URLs across restarts.
-- Expose a **decoupled web frontend** built with a modern framework (e.g., React, Next.js, Vue.js, Angular, Flask with templates). This can be lightweight form/output just to demonstrate interaction with the API. Feel free to use UI frameworks like Bootstrap, Material-UI, Tailwind CSS, GOV.UK design system, etc. to speed up development.
-- Expose a **RESTful API** to perform create/read/delete operations on URLs.  
-  → Refer to the provided [`openapi.yaml`](./openapi.yaml) for API structure and expected behaviour.
-- Include the ability to **delete a shortened URL** via the API.
-- **Have tests**.
-- Be containerised (e.g. Docker).
-- Include instructions for running locally.
+### Frontend Uage
 
-## Rules
+I have tried to make the colurs work on light and dark.
 
-- Fork the repository and work in your fork. Do not push directly to the main repository.
-- There is no time limit, we want to see something you are proud of. We would like to understand roughly how long you spent on it though.
-- **Commit often with meaningful messages.**
-- Write tests.
-- The API should validate inputs and handle errors gracefully.
-- The Frontend should show errors from the API appropriately.
-- Use the provided [`openapi.yaml`](./openapi.yaml) as the API contract.
-- Focus on clean, maintainable code.
-- AI tools (e.g., GitHub Copilot, ChatGPT) are allowed, but please **do not** copy-paste large chunks of code. Use them as assistants, not as a replacement for your own work. We will be asking.
+   <img width="869" height="617" alt="Screenshot 2026-02-08 at 21 02 53" src="https://github.com/user-attachments/assets/fcbb8ce9-594c-4195-b450-9c874ee7bc53" />
+
+   Simply enter a long url in the text box and click the Shorten URL button. You will then see a shortened URL appear below.
+
+   <img width="869" height="610" alt="Screenshot 2026-02-08 at 21 07 25" src="https://github.com/user-attachments/assets/66358e6b-3cab-4a82-bbcb-8d48c9c17da8" />
+
+   By clicking The List URLS Button you can manage your requests.
+
+   <img width="869" height="610" alt="Screenshot 2026-02-08 at 21 09 00" src="https://github.com/user-attachments/assets/248a1b35-b49b-4b41-9879-4c98f0ca3280" />
+
+   You can Delete a requested URL by using the Delete action in the table.
+
+### Backend API
+
+I used HTTPie to test the response. 
+
+You can use the endpoints as listed in the openapi.yaml file.
+
+The backend is built using kotlin and ktor for a quick and lightwieight server. 
+Full validation and API Error Handling has been built.
+There are a number of Tests as well to cover the functionality.
+
+<img width="869" height="610" alt="Screenshot 2026-02-08 at 21 09 00" src="https://github.com/user-attachments/assets/33d6917f-e4de-4db6-8fad-c0aa41c67026" />
+
+<img width="869" height="610" alt="Screenshot 2026-02-08 at 21 09 00" src="https://github.com/user-attachments/assets/032bf6c7-ceb5-4d6a-b3cb-7ff0b81ab50b" />
+
+
 
 ## Deliverables
 
