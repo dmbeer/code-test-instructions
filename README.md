@@ -46,17 +46,6 @@ There are a number of Tests as well to cover the functionality.
 <img width="1164" height="734" alt="Screenshot 2026-02-08 at 21 15 09" src="https://github.com/user-attachments/assets/1268ca49-adf4-48c6-8837-c2884db7e754" />
 
 
+### Notes
+The Get /alias api has not been covered as you can follow links by copying them or using the frontend.
 
-
-## Deliverables
-
-- Working software.
-- Decoupled web frontend (using a modern framework like React, Next.js, Vue.js, Angular, or Flask with templates).
-- RESTful API matching the OpenAPI spec.
-- Tests.
-- A git commit history that shows your thought process.
-- Dockerfile.
-- README with:
-  - How to build and run locally.
-  - Example usage (frontend and API).
-  - Any notes or assumptions.
