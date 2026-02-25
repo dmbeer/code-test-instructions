@@ -11,7 +11,7 @@ services:
   backend:
     container_name: url-shortener-service
     build:
-      context: ./url-shotne-service
+      context: ./url-shortener-service
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -25,7 +25,7 @@ services:
   frontend:
     container_name: url-shortener-frontend
     build:
-      context: ./url-shortner-frontend
+      context: ./url-shortener-frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"

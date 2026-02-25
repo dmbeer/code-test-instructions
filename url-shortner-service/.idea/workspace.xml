@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="addffdd4-9e9a-4a13-9322-b6219bd6f111" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/.idea/url-shortner-frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/api/ShortnerService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/components/ConfirmDeleteModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/components/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/components/RowActions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/list-urls/ListURLs.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/model/ListURLSResponse.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/model/ShortenedURLResponse.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/root.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/routes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/routes/home.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/routes/list-urls.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/app/welcome/welcome.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/react-router.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shortner-frontend/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/gradle/libs.versions.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/Application.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/CallLogging.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/CommandLogger.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/ConfigureCors.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/HTTP.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/KoinModules.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/RequestValidation.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/Serialization.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/config/StatusPages.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/ShortUrlResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/URLShortRequest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/UrlRequestsResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/exceptions/ApiException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/exceptions/ExceptionResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/mongodb/CustomAlias.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/mongodb/UrlRequests.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/mongodb/repositories/CustomAliasRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/model/mongodb/repositories/UrlRequestsRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/routes/AliasRoutes.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/routes/Routes.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/routes/ShortenRoutes.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/routes/UrlsRoutes.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/service/ShortenerService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/kotlin/urlshortner/utils/Utils.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/main/resources/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/test/kotlin/urlshortner/routes/ShortenRoutesTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/test/kotlin/urlshortner/service/ShortenerServiceTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/test/kotlin/urlshortner/utils/UtilsTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../url-shotne-service/src/test/resources/application.yaml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="url-shotner" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Ktor Test Class" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
+        <option value="Dockerfile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.3.0-bin/79n14ral3mx1ozqr3csh2u872/gradle-9.3.0" javaHome="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home" gradleVersion="9.3.0" />
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="39GAOVpwHcfmVPKCjsEWEuT8G2e" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build url-shortner-service.executor": "Run",
+    "Gradle.Build url-shotne-service.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.ShortenRoutesTest.Test Post Url Shorten No Alias.executor": "Run",
+    "Gradle.ShortenRoutesTest.executor": "Run",
+    "Gradle.ShortenerServiceTest.Shorten Full URL with backslash in url without alias.executor": "Debug",
+    "Gradle.ShortenerServiceTest.Shorten Full URL with no alias.executor": "Run",
+    "Gradle.ShortenerServiceTest.executor": "Run",
+    "Gradle.UtilsTest.executor": "Run",
+    "Gradle.url-shotne-service [buildImage].executor": "Run",
+    "Gradle.url-shotne-service [clean test].executor": "Run",
+    "Gradle.url-shotne-service [clean].executor": "Run",
+    "Gradle.url-shotne-service [publishImageToLocalRegistry].executor": "Run",
+    "Gradle.url-shotne-service [run].executor": "Run",
+    "Ktor.EngineMain.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/Users/davidbeer/Development/Jobs/technical-tasks/TPXImpact/code-test-instructions/url-shotne-service/src/main/kotlin/urlshortner/config",
+    "last_opened_file_path": "/Users/davidbeer/Development/Jobs/technical-tasks/TPXImpact/code-test-instructions/url-shortner-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/kotlin/urlshortner/routes" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/urlshortner/config" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/urlshortner" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/urlshortner/model/exceptions" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/urlshotrner/config" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="urlshortner.model.mongodb.repositories" />
+      <recent name="urlshortner.config" />
+      <recent name="urlshortner.model.exceptions" />
+    </key>
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.example.urlshortner.config" />
+      <recent name="com.example.com.example.urlshortner.config" />
+      <recent name="com.example.urlshotrner.config" />
+      <recent name="com.example.com.example.urlshotrner.config" />
+      <recent name="com.example.urlshortner" />
+    </key>
+    <key name="KtorModuleTestDialog.RecentsKey">
+      <recent name="urlshortner.routes" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="GradleRunConfiguration" />
+      </set>
+    </option>
+    <option name="configurationStatuses">
+      <map>
+        <entry key="GradleRunConfiguration">
+          <value>
+            <map>
+              <entry key="Build url-shortner-service" value="STOPPED" />
+              <entry key="url-shotne-service [clean test]" value="STOPPED" />
+              <entry key="url-shotne-service [run]" value="STOPPED" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle.url-shotne-service [run]">
+    <configuration name="url-shotne-service [clean test]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="url-shotne-service [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="url-shotne-service [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="url-shotne-service" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="url-shotne-service" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EngineMain" type="KtorApplicationConfigurationType" factoryName="Ktor" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="io.ktor.server.netty.EngineMain" />
+      <module name="url-shotner.main" />
+      <option name="alternativeJrePath" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="false" />
+      <option name="mainClass" value="io.ktor.server.netty.EngineMain" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.url-shotne-service [clean test]" />
+      <item itemvalue="Gradle.url-shotne-service [run]" />
+      <item itemvalue="Gradle.url-shotne-service [clean]" />
+      <item itemvalue="Ktor.EngineMain" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.url-shotne-service [run]" />
+        <item itemvalue="Gradle.url-shotne-service [clean]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="addffdd4-9e9a-4a13-9322-b6219bd6f111" name="Changes" comment="" />
+      <created>1770312001211</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1770312001211</updated>
+      <workItem from="1770312002345" duration="12903000" />
+      <workItem from="1770389685585" duration="24106000" />
+      <workItem from="1770478332282" duration="30808000" />
+      <workItem from="1772053811979" duration="1559000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/urlshortner/service/ShortenerService.kt</url>
+          <line>39</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,3 +1,0 @@
-interface ShortenURLResponse {
-    shortUrl: string;
-}
