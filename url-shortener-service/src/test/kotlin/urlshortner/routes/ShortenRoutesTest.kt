@@ -1,10 +1,11 @@
 package urlshortner.routes
 
+import com.example.urlshortner.TestModules
 import com.example.urlshortner.model.ShortUrlResponse
 import com.example.urlshortner.model.URLShortRequest
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
-import com.example.urlshortner.module
+import com.example.urlshortner.module as appModule
 import com.example.urlshortner.service.ShortenerService
 import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoDatabase
@@ -14,12 +15,12 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.ApplicationEnvironment
-import io.ktor.server.engine.applicationEnvironment
 import io.ktor.server.testing.*
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.serialization.json.Json
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.koin.dsl.module
 import kotlin.test.Test
@@ -34,17 +35,10 @@ class ShortenRoutesTest {
     private lateinit var mockEnv: ApplicationEnvironment
     private lateinit var shortenerServiceMock: ShortenerService
 
-    val testModule = module {
-        single<MongoClient> { mockk(relaxed = true) }
-        single<MongoDatabase> { mockk(relaxed = true) }
-        single<UrlRequestsRepository> { urlRequestsRepositoryMock }
-        single<CustomAliasRepository>{ customAliasRepositoryMock }
-        single<ApplicationEnvironment> { mockEnv }
-    }
-
     @BeforeEach
     fun setUp() {
         clearAllMocks()
+
         urlRequestsRepositoryMock = mockk<UrlRequestsRepository>()
         customAliasRepositoryMock = mockk<CustomAliasRepository>()
         mockEnv= mockk<ApplicationEnvironment>(relaxed = true)
@@ -58,13 +52,28 @@ class ShortenRoutesTest {
         every { mockEnv.config.property("ktor.deployment.host").getString() } returns "localhost"
         every { mockEnv.config.property("ktor.deployment.port").getString() } returns "8080"
         baseUrl = "http://localhost:8080"
+
+        TestModules.extraModules = listOf(
+            module() {
+                single<MongoClient> { mockk(relaxed = true) }
+                single<MongoDatabase> { mockk(relaxed = true) }
+                single<UrlRequestsRepository> { urlRequestsRepositoryMock }
+                single<CustomAliasRepository>{ customAliasRepositoryMock }
+                single<ApplicationEnvironment> { mockEnv }
+            }
+        )
+    }
+
+    @AfterEach
+    fun tearDown() {
+        TestModules.extraModules = emptyList()
     }
 
     @Test
     fun `Test Post Url Shorten No Alias`() = testApplication {
         configure()
         application {
-            module(extraModules = listOf(testModule))
+            appModule()
         }
         client = createClient { install(ContentNegotiation) { json() } }
         val response = client.post("/shorten") {
@@ -82,7 +91,7 @@ class ShortenRoutesTest {
     fun `Test Post Url Shorten with Alias`() = testApplication {
         configure()
         application {
-            module(extraModules = listOf(testModule))
+            appModule()
         }
         val client = createClient { install(ContentNegotiation) { json() } }
         val response = client.post("/shorten") {
@@ -98,7 +107,7 @@ class ShortenRoutesTest {
     fun `Test with blank fullUrl`() = testApplication {
         configure()
         application {
-            module(extraModules = listOf(testModule))
+            appModule()
         }
         val client = createClient { install(ContentNegotiation) { json() } }
         val response = client.post("/shorten") {

@@ -16,7 +16,11 @@ fun main(args: Array<String>) {
     EngineMain.main(args)
 }
 
-fun Application.module(extraModules: List<org.koin.core.module.Module> = emptyList()) {
+object TestModules {
+    var extraModules: List<org.koin.core.module.Module> = emptyList()
+}
+
+fun Application.module() {
     val clock = Clock.systemUTC()
     val commandLogger = CommandLogger()
     val settings = MongoClientSettings.builder()
@@ -31,7 +35,7 @@ fun Application.module(extraModules: List<org.koin.core.module.Module> = emptyLi
             single { get<MongoClient>().getDatabase(environment.config.property("ktor.mongo.database").getString()) }
             single<ApplicationEnvironment> { environment }
         }
-        modules(listOf(appModule, dbModule) + extraModules)
+        modules(listOf(appModule, dbModule) + TestModules.extraModules)
     }
     configureSerialization()
     configureHTTP()
