@@ -50,6 +50,10 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
         }.toList()
     }
 
+    fun resolve(alias: String): String? {
+        return urlRequestsRepository.findByAlias(alias)?.fullUrl
+    }
+
     fun deleteAlias(alias: String): Boolean {
         var found = false
         val customAlias = customAliasRepository.findByAlias(alias)

@@ -8,6 +8,15 @@ import org.koin.ktor.ext.inject
 
 fun Route.aliasRoutes() {
     val shortenerService by inject<ShortenerService>()
+    get("/{alias}") {
+        val alias = call.parameters["alias"]
+            ?: return@get call.respond(HttpStatusCode.BadRequest)
+
+        val originalUrl = shortenerService.resolve(alias)
+            ?: return@get call.respond(HttpStatusCode.NotFound, "Alias Not Found")
+
+        call.respondRedirect(originalUrl, permanent = false)
+    }
     delete("/{alias}") {
         val result = shortenerService.deleteAlias(call.parameters["alias"] as String)
         if (result) {
