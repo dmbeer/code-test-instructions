@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
     EngineMain.main(args)
 }
 
-fun Application.module() {
+fun Application.module(extraModules: List<org.koin.core.module.Module> = emptyList()) {
     val clock = Clock.systemUTC()
     val commandLogger = CommandLogger()
     val settings = MongoClientSettings.builder()
@@ -25,10 +25,13 @@ fun Application.module() {
         .build()
     install(Koin) {
         slf4jLogger()
-        modules(appModule, module {
+        allowOverride(true)
+        val dbModule = module {
             single { MongoClient.create(settings) }
             single { get<MongoClient>().getDatabase(environment.config.property("ktor.mongo.database").getString()) }
-        })
+            single<ApplicationEnvironment> { environment }
+        }
+        modules(listOf(appModule, dbModule) + extraModules)
     }
     configureSerialization()
     configureHTTP()

@@ -15,6 +15,10 @@ kotlin {
     jvmToolchain(21)
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.client.content.negotiation)
@@ -33,6 +37,7 @@ dependencies {
     implementation(libs.koin.sl4j)
     implementation(libs.ktor.server.cors)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.mock.test)
+    testRuntimeOnly(libs.junit.jupiter)
 }

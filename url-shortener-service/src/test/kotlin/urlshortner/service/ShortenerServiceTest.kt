@@ -5,23 +5,38 @@ import com.example.urlshortner.model.mongodb.CustomAlias
 import com.example.urlshortner.model.mongodb.UrlRequests
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
+import io.ktor.server.application.ApplicationEnvironment
 import io.mockk.every
 import io.mockk.mockk
 import org.bson.types.ObjectId
+import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 class ShortenerServiceTest {
 
-    val repository = mockk<UrlRequestsRepository>()
-    val customAliasRepository = mockk<CustomAliasRepository>()
-    val shortenerService = ShortenerService(repository, customAliasRepository)
+    private lateinit var repository: UrlRequestsRepository
+    private lateinit var customAliasRepository: CustomAliasRepository
+    private lateinit var mockEnv: ApplicationEnvironment
+    private lateinit var shortenerService: ShortenerService
+    private lateinit var baseUrl: String
+
+    @BeforeEach
+    fun setup() {
+        repository = mockk<UrlRequestsRepository>()
+        customAliasRepository = mockk<CustomAliasRepository>()
+        mockEnv= mockk<ApplicationEnvironment>(relaxed = true)
+        shortenerService = ShortenerService(repository, customAliasRepository, mockEnv)
+        every { repository.insertOne(any()) } returns true
+        every { customAliasRepository.insertOne(any()) } returns true
+        every { mockEnv.config.property("ktor.deployment.host").getString() } returns "localhost"
+        every { mockEnv.config.property("ktor.deployment.port").getString() } returns "8080"
+        baseUrl = "http://localhost:8080"
+    }
 
     @Test
     fun `Shorten Full URL with no alias`() {
-        every { repository.insertOne(any()) } returns true
-        every { customAliasRepository.insertOne(any()) } returns true
         val shortenedUrl = shortenerService.shortenURL("https://example.com/full-url", "")
 
         assertNotEquals("http://example.com/full-url", shortenedUrl)
@@ -29,28 +44,22 @@ class ShortenerServiceTest {
 
     @Test
     fun `Shorten Full URL with custom alias`() {
-        every { repository.insertOne(any()) } returns true
-        every { customAliasRepository.insertOne(any()) } returns true
         val shortenedUrl = shortenerService.shortenURL("https://example.com/long-url", "my-custom-alias")
         assertNotEquals("http://example.com/long-url", shortenedUrl)
     }
 
     @Test
     fun `Shorten Full URL with backslash in url without alias`() {
-        every { repository.insertOne(any()) } returns true
-        every { customAliasRepository.insertOne(any()) } returns true
         val shortenedUrl = shortenerService.shortenURL("https://example.com/long/url", "")
         assertNotEquals("https://example.com/long/url", shortenedUrl)
-        assertEquals("https://example.com", shortenedUrl.substringBeforeLast('/'))
+        assertEquals(baseUrl, shortenedUrl.substringBeforeLast('/'))
     }
 
     @Test
     fun `Shorten Full URL with backslash in url with alias`() {
-        every { repository.insertOne(any()) } returns true
-        every { customAliasRepository.insertOne(any()) } returns true
         val shortenedUrl = shortenerService.shortenURL("https://example.com/long/url", "job")
         assertNotEquals("https://example.com/long/url", shortenedUrl)
-        assertEquals("https://example.com", shortenedUrl.substringBeforeLast('/'))
+        assertEquals(baseUrl, shortenedUrl.substringBeforeLast('/'))
     }
 
     @Test

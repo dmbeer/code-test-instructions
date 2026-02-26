@@ -4,6 +4,7 @@ ktor:
             - com.example.urlshortner.ApplicationKt.module
     deployment:
         port: 8080
+        host: localhost
     mongo:
         uri: ${MONGO_URI:mongodb://localhost:27017}
         database: url-shortener
