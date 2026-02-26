@@ -94,4 +94,35 @@ class ShortenerServiceTest {
         val deleted = shortenerService.deleteAlias("eR7htu")
         assertEquals(true, deleted)
     }
+
+    @Test
+    fun `Get an Full Url from Alias not custom`() {
+        every { repository.findByAlias(any()) } returns UrlRequests(
+            null,
+            "https://example.com/full-url",
+            "eR7htu",
+            "http://localhost:8080/eR7htu"
+        )
+        val fulUrl = shortenerService.resolve("eR7htu")
+        assertEquals("https://example.com/full-url", fulUrl)
+    }
+
+    @Test
+    fun `Get an Full URL from Custom Alias`() {
+        every { repository.findByAlias(any()) } returns UrlRequests(
+            null,
+            "https://example.com/full-url",
+            "custom",
+            "http://localhost:8080/custom"
+        )
+        val fulUrl = shortenerService.resolve("custom")
+        assertEquals("https://example.com/full-url", fulUrl)
+    }
+
+    @Test
+    fun `Request an Full URL alias Not Found`() {
+        every { repository.findByAlias(any()) } returns null
+        val fullUrl = shortenerService.resolve("eR7htu")
+        assertEquals(null, fullUrl)
+    }
 }
