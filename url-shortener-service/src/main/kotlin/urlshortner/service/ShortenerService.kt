@@ -6,6 +6,8 @@ import com.example.urlshortner.model.mongodb.UrlRequests
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.example.urlshortner.utils.generateRandomString
+import com.mongodb.MongoException
+import com.mongodb.kotlin.client.MongoClient
 import io.ktor.http.URLBuilder
 import io.ktor.http.URLProtocol
 import io.ktor.http.Url
@@ -17,7 +19,8 @@ import kotlinx.coroutines.flow.toList
 import java.net.URI
 
 class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
-                       val customAliasRepository: CustomAliasRepository, val environment: ApplicationEnvironment ) {
+                       val customAliasRepository: CustomAliasRepository, val environment: ApplicationEnvironment,
+                       val mongoClient: MongoClient) {
 
     fun shortenURL(fullURL: String, alias: String): String {
         val ktorhost = environment.config.property("ktor.deployment.host").getString()
@@ -40,15 +43,23 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
             }
         } else {
             if (customAliasRepository.findByAlias(alias) == null) {
-                shortened = URLBuilder().apply {
-                    protocol = URLProtocol.HTTP
-                    host = baseUrl
-                    path("/$alias")
-                }.buildString()
-                urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
-                customAliasRepository.insertOne(CustomAlias(null, alias))
-            } else {
-                return shortened
+                val session = mongoClient.startSession()
+                try {
+                    session.startTransaction()
+                    shortened = URLBuilder().apply {
+                        protocol = URLProtocol.HTTP
+                        host = baseUrl
+                        path("/$alias")
+                    }.buildString()
+                    urlRequestsRepository.insertOne(session, UrlRequests(null, fullURL, alias, shortened))
+                    customAliasRepository.insertOne(CustomAlias(null, alias))
+                    session.commitTransaction()
+                } catch (e: MongoException) {
+                    session.abortTransaction()
+                    throw e
+                } finally {
+                    session.close()
+                }
             }
         }
         return shortened
@@ -68,9 +79,19 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
         var found = false
         val customAlias = customAliasRepository.findByAlias(alias)
         if (customAlias != null) {
-            found = true
-            urlRequestsRepository.deleteByAlias(alias)
-            customAliasRepository.deleteByAlias(alias)
+            val session = mongoClient.startSession()
+            try {
+                session.startTransaction()
+                urlRequestsRepository.deleteByAlias(session, alias)
+                customAliasRepository.deleteByAlias(session, alias)
+                session.commitTransaction()
+                found = true
+            } catch (e: Exception) {
+                session.abortTransaction()
+                throw e
+            } finally {
+                session.close()
+            }
         } else {
             val urlrequst = urlRequestsRepository.findByAlias(alias)
             if (urlrequst != null) {

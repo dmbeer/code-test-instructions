@@ -3,23 +3,30 @@ package com.example.urlshortner.model.mongodb.repositories
 import com.example.urlshortner.model.mongodb.CustomAlias
 import com.mongodb.MongoException
 import com.mongodb.client.model.Filters
+import com.mongodb.kotlin.client.ClientSession
+import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoDatabase
 
 class CustomAliasRepository(val mongoDatabase: MongoDatabase) {
     val COLLECTION = "custom_alias"
 
     fun insertOne(value: CustomAlias): Boolean {
-        try {
-            val result = mongoDatabase.getCollection<CustomAlias>(COLLECTION).insertOne(
-                value
-            )
+        return insertOne(null, value)
+    }
 
-            return true
+    fun insertOne(session: ClientSession?, value: CustomAlias): Boolean {
+        return try {
+            val collection = mongoDatabase.getCollection<CustomAlias>(COLLECTION)
+            if (session != null) {
+                collection.insertOne(session, value)
+            } else {
+                collection.insertOne(value)
+            }
+            true
         } catch (e: MongoException) {
             System.err.println("Unable to insert due to an error: $e")
+            false
         }
-
-        return false
     }
 
     fun findByAlias(alias: String): CustomAlias? {
@@ -28,13 +35,20 @@ class CustomAliasRepository(val mongoDatabase: MongoDatabase) {
     }
 
     fun deleteByAlias(alias: String): Boolean {
-        try {
-            mongoDatabase.getCollection<CustomAlias>(COLLECTION).deleteOne(Filters.eq("alias", alias))
-            return true
+        return deleteByAlias(null, alias)
+    }
+    fun deleteByAlias(session: ClientSession?, alias: String): Boolean {
+        return try {
+            val collection = mongoDatabase.getCollection<CustomAlias>(COLLECTION)
+            if (session != null) {
+                collection.deleteOne(session, Filters.eq("alias", alias))
+            } else {
+                collection.deleteOne(Filters.eq("alias", alias))
+            }
+            true
         } catch (e: MongoException) {
             System.err.println("Unable to delete due to an error: $e")
+            false
         }
-
-        return false
     }
 }

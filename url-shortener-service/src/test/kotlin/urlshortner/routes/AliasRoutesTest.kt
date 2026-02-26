@@ -6,6 +6,7 @@ import com.example.urlshortner.model.mongodb.UrlRequests
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.example.urlshortner.service.ShortenerService
+import com.mongodb.kotlin.client.ClientSession
 import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoDatabase
 import io.ktor.client.request.*
@@ -13,6 +14,7 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.testing.*
+import io.mockk.Runs
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.just
@@ -31,6 +33,8 @@ class AliasRoutesTest {
     private lateinit var urlRequestsRepositoryMock: UrlRequestsRepository
     private lateinit var customAliasRepositoryMock: CustomAliasRepository
     private lateinit var mockEnv: ApplicationEnvironment
+    private lateinit var session: ClientSession
+    private lateinit var mongoClient: MongoClient
     private lateinit var shortenerServiceMock: ShortenerService
 
     @BeforeEach
@@ -39,6 +43,8 @@ class AliasRoutesTest {
 
         urlRequestsRepositoryMock = mockk<UrlRequestsRepository>()
         customAliasRepositoryMock = mockk<CustomAliasRepository>()
+        session = mockk<ClientSession>()
+        mongoClient = mockk<MongoClient>(relaxed = true)
         mockEnv= mockk<ApplicationEnvironment>(relaxed = true)
         shortenerServiceMock = mockk<ShortenerService> {
             every { urlRequestsRepository } returns urlRequestsRepositoryMock
@@ -46,13 +52,20 @@ class AliasRoutesTest {
             every { environment } returns mockEnv
         }
 
+        // Session stubs
+        every { mongoClient.startSession() } returns session
+        every { session.startTransaction() } just Runs
+        every { session.commitTransaction() } just Runs
+        every { session.abortTransaction() } just Runs
+        every { session.close() } just Runs
+
         every { mockEnv.config.property("ktor.deployment.host").getString() } returns "localhost"
         every { mockEnv.config.property("ktor.deployment.port").getString() } returns "8080"
         baseUrl = "http://localhost:8080"
 
         TestModules.extraModules = listOf(
             module() {
-                single<MongoClient> { mockk(relaxed = true) }
+                single<MongoClient> { mongoClient }
                 single<MongoDatabase> { mockk(relaxed = true) }
                 single<UrlRequestsRepository> { urlRequestsRepositoryMock }
                 single<CustomAliasRepository>{ customAliasRepositoryMock }
@@ -108,8 +121,8 @@ class AliasRoutesTest {
         every { customAliasRepositoryMock.findByAlias(any()) } returns CustomAlias(
             alias = "abc123",
         )
-        every { customAliasRepositoryMock.deleteByAlias(any()) } returns true
-        every { urlRequestsRepositoryMock.deleteByAlias(any()) } returns true
+        every { customAliasRepositoryMock.deleteByAlias(session, any()) } returns true
+        every { urlRequestsRepositoryMock.deleteByAlias(session, any()) } returns true
 //        client = createClient {}
         val response = client.delete("/abc123")
         assertEquals(HttpStatusCode.NoContent, response.status)

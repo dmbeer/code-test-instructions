@@ -10,5 +10,5 @@ import org.koin.dsl.module
 val appModule = module {
     single { UrlRequestsRepository(get()) }
     single { CustomAliasRepository(get()) }
-    single { ShortenerService(get(), get(), get()) }
+    single { ShortenerService(get(), get(), get(), get()) }
 }
