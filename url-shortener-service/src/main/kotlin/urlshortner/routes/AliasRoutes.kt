@@ -18,11 +18,14 @@ fun Route.aliasRoutes() {
         call.respondRedirect(originalUrl, permanent = false)
     }
     delete("/{alias}") {
-        val result = shortenerService.deleteAlias(call.parameters["alias"] as String)
+        val alias = call.parameters["alias"]
+            ?: return@delete call.respond(HttpStatusCode.BadRequest)
+
+        val result = shortenerService.deleteAlias(alias)
         if (result) {
             call.respond(HttpStatusCode.NoContent)
         } else {
-            call.respond(HttpStatusCode.NotFound)
+            call.respond(HttpStatusCode.NotFound, "Alias Not Found")
         }
     }
 }
