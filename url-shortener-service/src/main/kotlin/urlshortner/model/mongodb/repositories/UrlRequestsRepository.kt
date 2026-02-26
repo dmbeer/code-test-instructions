@@ -32,13 +32,18 @@ class UrlRequestsRepository(val mongoDatabase: MongoDatabase) {
 
     fun deleteByAlias(alias: String): Boolean {
         try {
-            mongoDatabase.getCollection<CustomAlias>(COLLECTION).deleteOne(Filters.eq("alias", alias))
+            mongoDatabase.getCollection<UrlRequests>(COLLECTION).deleteOne(Filters.eq("alias", alias))
             return true
         } catch (e: MongoException) {
             System.err.println("Unable to delete due to an error: $e")
         }
 
         return false
+    }
+
+    fun findByFullUrl(fullURL: String) : UrlRequests? {
+        val result = mongoDatabase.getCollection<UrlRequests>(COLLECTION).find(Filters.eq("fullUrl", fullURL))
+        return result.firstOrNull()
     }
 
 }

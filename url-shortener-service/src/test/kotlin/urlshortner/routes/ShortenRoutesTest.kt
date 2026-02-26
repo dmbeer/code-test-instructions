@@ -3,6 +3,8 @@ package urlshortner.routes
 import com.example.urlshortner.TestModules
 import com.example.urlshortner.model.ShortUrlResponse
 import com.example.urlshortner.model.URLShortRequest
+import com.example.urlshortner.model.mongodb.CustomAlias
+import com.example.urlshortner.model.mongodb.UrlRequests
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.example.urlshortner.module as appModule
@@ -76,6 +78,8 @@ class ShortenRoutesTest {
             appModule()
         }
         client = createClient { install(ContentNegotiation) { json() } }
+        every { urlRequestsRepositoryMock.findByAlias(any()) } returns null
+        every { urlRequestsRepositoryMock.findByFullUrl(any()) } returns null
         val response = client.post("/shorten") {
             contentType(ContentType.Application.Json)
             setBody(URLShortRequest("https://www.example.com/long/url"))
@@ -88,12 +92,58 @@ class ShortenRoutesTest {
     }
 
     @Test
+    fun `Test Shorten URL with no Alias Already used fullUrl`() = testApplication {
+        configure()
+        application {
+            appModule()
+        }
+        client = createClient { install(ContentNegotiation) { json() } }
+        every { urlRequestsRepositoryMock.findByAlias(any()) } returns null
+        every { urlRequestsRepositoryMock.findByFullUrl(any()) } returns UrlRequests(
+            fullUrl = "https://www.example.com/long/url",
+            alias = "job",
+            shortUrl = "http://localhost:8080/job",
+        )
+        val response = client.post("/shorten") {
+            contentType(ContentType.Application.Json)
+            setBody(URLShortRequest("https://www.example.com/long/url", ""))
+        }
+        assertEquals(HttpStatusCode.Created, response.status)
+        assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
+        assertEquals("{\"shortUrl\":\"http://localhost:8080/job\"}", response.bodyAsText())
+    }
+
+    @Test
+    fun `Test Shorten URL with Alias Already used fullUrl not used`() = testApplication {
+        configure()
+        application {
+            appModule()
+        }
+        client = createClient { install(ContentNegotiation) { json() } }
+        every { urlRequestsRepositoryMock.findByAlias(any()) } returns UrlRequests(
+            fullUrl = "https://www.example.com/long/url",
+            alias = "abc123",
+            shortUrl = "http://localhost:8080/job",
+        )
+        every { urlRequestsRepositoryMock.findByFullUrl(any()) } returns null
+        client = createClient { install(ContentNegotiation) { json() } }
+        val response = client.post("/shorten") {
+            contentType(ContentType.Application.Json)
+            setBody(URLShortRequest("https://www.example.com/long/url", ""))
+        }
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+        assertEquals(ContentType.Text.Plain.withCharset(Charsets.UTF_8), response.contentType())
+        assertEquals("Invalid input or alias already taken", response.bodyAsText())
+    }
+
+    @Test
     fun `Test Post Url Shorten with Alias`() = testApplication {
         configure()
         application {
             appModule()
         }
         val client = createClient { install(ContentNegotiation) { json() } }
+        every { customAliasRepositoryMock.findByAlias(any())} returns null
         val response = client.post("/shorten") {
             contentType(ContentType.Application.Json)
             setBody(URLShortRequest("https://example.com/long/url", "job"))
@@ -101,6 +151,26 @@ class ShortenRoutesTest {
         assertEquals(HttpStatusCode.Created, response.status)
         assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
         assertContains("{\"shortUrl\":\"http://localhost:8080/job\"}", response.bodyAsText())
+    }
+
+    @Test
+    fun `Test Shorten URL With Custom Alias already used`() = testApplication {
+        configure()
+        configure()
+        application {
+            appModule()
+        }
+        val client = createClient { install(ContentNegotiation) { json() } }
+        every { customAliasRepositoryMock.findByAlias(any())} returns CustomAlias(
+            alias = "job",
+        )
+        val response = client.post("/shorten") {
+            contentType(ContentType.Application.Json)
+            setBody(URLShortRequest("https://example.com/long/url", "job"))
+        }
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+        assertEquals(ContentType.Text.Plain.withCharset(Charsets.UTF_8), response.contentType())
+        assertEquals("Invalid input or alias already taken", response.bodyAsText())
     }
 
     @Test

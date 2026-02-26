@@ -16,6 +16,10 @@ fun Route.shortenRoutes() {
         val request = call.receive<URLShortRequest>()
         call.application.environment.log.info("${request.fullUrl} ")
         val shortenedAlias = shortenerService.shortenURL(request.fullUrl, request.customAlias)
-        call.respond(HttpStatusCode.Created, ShortUrlResponse(shortenedAlias))
+        if (shortenedAlias.isEmpty()) {
+            call.respond(HttpStatusCode.BadRequest, "Invalid input or alias already taken")
+        } else {
+            call.respond(HttpStatusCode.Created, ShortUrlResponse(shortenedAlias))
+        }
     }
 }

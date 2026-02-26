@@ -26,20 +26,30 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
         var shortened = ""
         if (alias.isEmpty()) {
             val alias: String = generateRandomString()
-            shortened = URLBuilder().apply {
-                protocol = URLProtocol.HTTP
-                host = baseUrl
-                path("/$alias")
-            }.buildString()
-            urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
+            if (urlRequestsRepository.findByAlias(alias) == null && urlRequestsRepository.findByFullUrl(fullURL) == null) {
+                shortened = URLBuilder().apply {
+                    protocol = URLProtocol.HTTP
+                    host = baseUrl
+                    path("/$alias")
+                }.buildString()
+                urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
+            } else {
+                if (urlRequestsRepository.findByFullUrl(fullURL) !=null) {
+                    shortened = urlRequestsRepository.findByFullUrl(fullURL)?.shortUrl!!
+                }
+            }
         } else {
-            shortened = URLBuilder().apply {
-                protocol = URLProtocol.HTTP
-                host = baseUrl
-                path("/$alias")
-            }.buildString()
-            urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
-            customAliasRepository.insertOne(CustomAlias(null, alias))
+            if (customAliasRepository.findByAlias(alias) == null) {
+                shortened = URLBuilder().apply {
+                    protocol = URLProtocol.HTTP
+                    host = baseUrl
+                    path("/$alias")
+                }.buildString()
+                urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
+                customAliasRepository.insertOne(CustomAlias(null, alias))
+            } else {
+                return shortened
+            }
         }
         return shortened
     }
