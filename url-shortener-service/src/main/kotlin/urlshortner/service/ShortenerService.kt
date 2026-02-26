@@ -8,15 +8,8 @@ import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.example.urlshortner.utils.generateRandomString
 import com.mongodb.MongoException
 import com.mongodb.kotlin.client.MongoClient
-import io.ktor.http.URLBuilder
-import io.ktor.http.URLProtocol
-import io.ktor.http.Url
-import io.ktor.http.path
-import io.ktor.server.application.ApplicationEnvironment
-import io.ktor.server.engine.applicationEnvironment
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
-import java.net.URI
+import io.ktor.http.*
+import io.ktor.server.application.*
 
 class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
                        val customAliasRepository: CustomAliasRepository, val environment: ApplicationEnvironment,

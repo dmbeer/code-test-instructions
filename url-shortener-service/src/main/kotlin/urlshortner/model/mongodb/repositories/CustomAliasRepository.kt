@@ -4,7 +4,6 @@ import com.example.urlshortner.model.mongodb.CustomAlias
 import com.mongodb.MongoException
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.ClientSession
-import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoDatabase
 
 class CustomAliasRepository(val mongoDatabase: MongoDatabase) {

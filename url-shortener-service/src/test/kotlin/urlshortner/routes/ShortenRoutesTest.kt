@@ -7,7 +7,6 @@ import com.example.urlshortner.model.mongodb.CustomAlias
 import com.example.urlshortner.model.mongodb.UrlRequests
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
-import com.example.urlshortner.module as appModule
 import com.example.urlshortner.service.ShortenerService
 import com.mongodb.kotlin.client.ClientSession
 import com.mongodb.kotlin.client.MongoClient
@@ -17,13 +16,9 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.application.ApplicationEnvironment
+import io.ktor.server.application.*
 import io.ktor.server.testing.*
-import io.mockk.Runs
-import io.mockk.clearAllMocks
-import io.mockk.every
-import io.mockk.just
-import io.mockk.mockk
+import io.mockk.*
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -31,6 +26,7 @@ import org.koin.dsl.module
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import com.example.urlshortner.module as appModule
 
 class ShortenRoutesTest {
 
@@ -202,6 +198,6 @@ class ShortenRoutesTest {
             setBody(URLShortRequest(""))
         }
         assertEquals(HttpStatusCode.BadRequest, response.status)
-        assertEquals("{\"message\":\"Validation failed for URLShortRequest(fullUrl=, customAlias=). Reasons: A URL is required to Shorten\",\"detailedMessage\":\"null\"}", response.bodyAsText())
+        assertEquals("{\"message\":\"A URL is required to shorten\",\"detailedMessage\":\"null\"}", response.bodyAsText())
     }
 }

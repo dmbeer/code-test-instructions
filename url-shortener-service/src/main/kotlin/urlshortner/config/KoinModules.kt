@@ -3,7 +3,6 @@ package com.example.urlshortner.config
 import com.example.urlshortner.model.mongodb.repositories.CustomAliasRepository
 import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.example.urlshortner.service.ShortenerService
-import io.ktor.server.application.ApplicationEnvironment
 import org.koin.dsl.module
 
 // Constructor DSL

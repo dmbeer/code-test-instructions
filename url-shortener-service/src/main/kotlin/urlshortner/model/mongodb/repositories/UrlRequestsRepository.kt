@@ -1,13 +1,10 @@
 package com.example.urlshortner.model.mongodb.repositories
 
-import com.example.urlshortner.model.mongodb.CustomAlias
 import com.example.urlshortner.model.mongodb.UrlRequests
 import com.mongodb.MongoException
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.ClientSession
-import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoDatabase
-import io.ktor.util.valuesOf
 
 class UrlRequestsRepository(val mongoDatabase: MongoDatabase) {
     val COLLECTION = "url_requests"

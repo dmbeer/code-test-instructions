@@ -8,17 +8,11 @@ import com.example.urlshortner.model.mongodb.repositories.UrlRequestsRepository
 import com.mongodb.kotlin.client.ClientSession
 import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoDatabase
-import io.ktor.server.application.ApplicationEnvironment
-import io.mockk.Runs
-import io.mockk.clearAllMocks
-import io.mockk.clearMocks
-import io.mockk.every
-import io.mockk.just
-import io.mockk.mockk
+import io.ktor.server.application.*
+import io.mockk.*
 import org.junit.jupiter.api.BeforeEach
 import org.koin.dsl.module
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 

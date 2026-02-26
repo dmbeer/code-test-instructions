@@ -3,13 +3,12 @@ package com.example.urlshortner.config
 import com.example.urlshortner.model.exceptions.ExceptionResponse
 import com.example.urlshortner.model.exceptions.ParsingException
 import com.example.urlshortner.model.exceptions.ValidationException
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
-import io.ktor.server.plugins.BadRequestException
-import io.ktor.server.plugins.requestvalidation.RequestValidationException
-import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respond
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.*
+import io.ktor.server.plugins.requestvalidation.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
 
 fun Application.configureStatusPage() {
     install(StatusPages) {
@@ -18,7 +17,7 @@ fun Application.configureStatusPage() {
                 is RequestValidationException -> {
                     call.respond(
                         HttpStatusCode.BadRequest,
-                        ExceptionResponse(throwable.localizedMessage, throwable.cause.toString())
+                        ExceptionResponse(throwable.reasons.joinToString(", "), throwable.cause.toString())
                     )
                 }
                 is ValidationException -> {
