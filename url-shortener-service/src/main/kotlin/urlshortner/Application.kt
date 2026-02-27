@@ -25,6 +25,7 @@ fun Application.module() {
     val commandLogger = CommandLogger()
     val settings = MongoClientSettings.builder()
         .applyConnectionString(ConnectionString(environment.config.propertyOrNull("ktor.mongo.uri")?.getString() ?: throw RuntimeException("Failed to access MongoDB URI.")))
+        .retryWrites(false)
         .addCommandListener(commandLogger)
         .build()
     install(Koin) {
@@ -43,5 +44,6 @@ fun Application.module() {
     configureRouting(clock)
     configureRequestValidation()
     configureStatusPage()
+    configureCallLogging()
 
 }

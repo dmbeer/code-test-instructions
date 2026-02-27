@@ -37,6 +37,7 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
         } else {
             if (customAliasRepository.findByAlias(alias) == null) {
                 val session = mongoClient.startSession()
+                var commited = false
                 try {
                     session.startTransaction()
                     shortened = URLBuilder().apply {
@@ -45,10 +46,13 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
                         path("/$alias")
                     }.buildString()
                     urlRequestsRepository.insertOne(session, UrlRequests(null, fullURL, alias, shortened))
-                    customAliasRepository.insertOne(CustomAlias(null, alias))
+                    customAliasRepository.insertOne(session,CustomAlias(null, alias))
                     session.commitTransaction()
+                    commited = true
                 } catch (e: MongoException) {
-                    session.abortTransaction()
+                    if (!commited) {
+                        session.abortTransaction()
+                    }
                     throw e
                 } finally {
                     session.close()

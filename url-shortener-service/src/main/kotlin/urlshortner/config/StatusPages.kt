@@ -3,6 +3,10 @@ package com.example.urlshortner.config
 import com.example.urlshortner.model.exceptions.ExceptionResponse
 import com.example.urlshortner.model.exceptions.ParsingException
 import com.example.urlshortner.model.exceptions.ValidationException
+import com.mongodb.MongoException
+import com.mongodb.MongoSocketException
+import com.mongodb.MongoSocketOpenException
+import com.mongodb.MongoTimeoutException
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
@@ -12,6 +16,15 @@ import io.ktor.server.response.*
 
 fun Application.configureStatusPage() {
     install(StatusPages) {
+        exception<MongoTimeoutException> { call, cause ->
+            call.respond(HttpStatusCode.ServiceUnavailable, mapOf("status" to "unhealthy", "error" to cause.message))
+        }
+        exception<MongoException> { call, cause ->
+            call.respond(HttpStatusCode.InternalServerError, mapOf("status" to "error", "error" to cause.message))
+        }
+        exception< MongoSocketOpenException> { call, cause ->
+            call.respond(HttpStatusCode.InternalServerError, mapOf("status" to "error", "error" to cause.message))
+        }
         exception<Throwable> { call, throwable ->
             when (throwable) {
                 is RequestValidationException -> {
