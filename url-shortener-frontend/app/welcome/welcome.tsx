@@ -3,25 +3,46 @@ import {Header} from "~/components/Header";
 import ShortnerService from "~/api/ShortnerService";
 import axios from "axios";
 import {Link} from "react-router";
+import {TextInput} from "~/components/TextInput";
 
 export function Welcome() {
     const [fullUrl, setFullUrl] = useState("");
     const [alias, setAlias] = useState("");
     const [shortenedURL, setShortenedURL] = useState<ShortenURLResponse>();
+    const [error, setError] = useState<String>("");
+    const [submitted, setSubmitted] = useState(false);
 
     async function handleSubmit() {
 
         try {
+            setShortenedURL(undefined);
+            setError("");
             const response = await ShortnerService.getShortURL(fullUrl, alias);
             setShortenedURL(response);
+            setSubmitted(true);
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error("API error:", error.response?.data);
-                console.error("Status:", error.response?.status);
+                if (error.response?.status === 503) {
+                    setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+                } else {
+                    setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                }
+                setSubmitted(true);
             } else {
-                console.error("Unexpected error:", error);
+                // Non-Axios error (e.g. a JS runtime error)
+                setError("An unexpected error occurred.");
+                console.error(error);
+                setSubmitted(true)
             }
         }
+    }
+
+    function handleReset() {
+        setSubmitted(false);
+        setShortenedURL(undefined);
+        setError("");
+        setFullUrl("");
+        setAlias("");
     }
 
     return (
@@ -45,29 +66,40 @@ export function Welcome() {
                     </div>
                     <div className="w-full md:w-96 rounded-xl border border-gray-700 p-6 text-center">
                         <div className="flex flex-col gap-4">
-                            <input
-                                type="text"
-                                placeholder="Paste your long URL here..."
+                            <TextInput
                                 value={fullUrl}
-                                onChange={(e) => setFullUrl(e.target.value)}
-                                className="w-full rounded-lg bg-gray-900 border border-gray-600 px-10 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onChange={setFullUrl}
+                                label="URL"
+                                placeholder="Enter Full Url here ..."
+                                required={true}
                             />
-                            <input
-                                type="text"
-                                placeholder="Paste your long URL here..."
+                            <TextInput
                                 value={alias}
-                                onChange={(e) => setAlias(e.target.value)}
-                                className="w-full rounded-lg bg-gray-900 border border-gray-600 px-10 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onChange={setAlias}
+                                placeholder="Enter Alias Here ..."
+                                label="Alias Here ..."
                             />
                         </div>
-                        <button
-                            className="mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition"
-                            onClick={handleSubmit}
-                        >
-                            Shorten URL
-                        </button>
+                        {!submitted ? (
+                            <button
+                                className="mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition"
+                                onClick={handleSubmit}
+                            >
+                                Shorten URL
+                            </button>
+                        ) : (
+                            <button
+                                className="mt-4 w-full rounded-lg bg-gray-600 py-2 font-semibold text-white hover:bg-gray-700 transition"
+                                onClick={handleReset}
+                            >
+                                Shorten Another
+                            </button>
+                        )}
                     </div>
                 </div>
+                {error && (
+                    <p className="mt-2 text-sm text-red-400">{error}</p>
+                )}
                 {shortenedURL && (
                     <div className="w-full md:w-96 rounded-xl border border-gray-700 p-6 text-center">
                         {shortenedURL?.shortUrl !== undefined && (
@@ -90,7 +122,7 @@ export function Welcome() {
 
 const resources = [
     {
-        text: "Get a Shortened URL in the box to the left",
+        text: "Get a Shortened URL",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
