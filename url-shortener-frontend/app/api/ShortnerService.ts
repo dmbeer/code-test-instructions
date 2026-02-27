@@ -20,8 +20,8 @@ class ShortnerServiceAPI {
         return response.data;
     }
 
-    async listURLS() :Promise<URLSResponse[]> {
-        const response = await axios.get<URLSResponse[]>(`${serverUrl}/urls`);
+    async listURLS({ signal }: { signal?: AbortSignal }) :Promise<URLSResponse[]> {
+        const response = await axios.get<URLSResponse[]>(`${serverUrl}/urls`, {signal});
         return response.data
     }
 

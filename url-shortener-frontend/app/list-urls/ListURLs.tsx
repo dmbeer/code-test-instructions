@@ -1,5 +1,5 @@
 import {Header} from "~/components/Header";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import ShortnerService from "~/api/ShortnerService";
 import axios from "axios";
 import RowActions from "~/components/RowActions";
@@ -12,34 +12,38 @@ export function ListURLS() {
     const [itemToDelete, setItemToDelete] = useState<URLSResponse | null>(null);
     const [error, setError] = useState<String>("");
 
-    async function getURLs() {
+    const getURLs = useCallback(async (signal?: AbortSignal) => {
         try {
-            const response = await ShortnerService.listURLS();
+            const response = await ShortnerService.listURLS({signal});
             setUrls(response);
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 503) {
-                    setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+            if (!signal) {
+                if (axios.isAxiosError(error)) {
+                    if (error.response?.status === 503) {
+                        setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+                    } else {
+                        setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                    }
                 } else {
-                    setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                    // Non-Axios error (e.g. a JS runtime error)
+                    setError("An unexpected error occurred.");
+                    console.error(error);
                 }
-            } else {
-                // Non-Axios error (e.g. a JS runtime error)
-                setError("An unexpected error occurred.");
-                console.error(error);
             }
         }
-    }
-
-    useEffect(() => {
-        getURLs();
     }, []);
 
-    async function handleDelete(alias: string) {
+    useEffect(() => {
+        const controller = new AbortController();
+        void getURLs(controller.signal);
+        return () => controller.abort();
+    }, [getURLs]);
+
+    const handleDelete = useCallback(async (alias: string) => {
         try {
-            const response = await ShortnerService.deleteAlias(alias);
+            await ShortnerService.deleteAlias(alias);
             setItemToDelete(null)
-            getURLs();
+            await getURLs();
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status === 503) {
@@ -53,7 +57,7 @@ export function ListURLS() {
                 console.error(error);
             }
         }
-    }
+    }, [getURLs]);
 
     return (
         <main className="flex items-center justify-center pt-16 pb-4">
