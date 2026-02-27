@@ -6,8 +6,13 @@ You can delete your requests.
 
 ## To use the project
 Clone the project from here.
+You will need node, and Java 21
 Make sure Docker is Installed
 open a terminal and run docker compose up --build -d
+
+### To run manually
+The frontend can be run using `npm run dev` from within the frontend directory
+The backend server can be run using `./gradlew run` from the backend directory
 
 This will build and launch 3 containers. 
 1. MongoDB 8 community and create a volume local to the project for storing data. This will set up a replica set locally as the code uses transactions which require this.
