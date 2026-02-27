@@ -48,6 +48,7 @@ class ShortenerServiceTest {
         every { urlRequestsRepository.insertOne(session, any()) } returns true
         every { urlRequestsRepository.deleteByAlias(session, any()) } returns true
         every { customAliasRepository.insertOne(any()) } returns true
+        every { customAliasRepository.insertOne(session, any()) } returns true
         every { customAliasRepository.deleteByAlias(any()) } returns true
         every { customAliasRepository.deleteByAlias(session, any()) } returns true
 

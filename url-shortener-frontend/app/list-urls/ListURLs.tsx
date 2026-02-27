@@ -9,8 +9,8 @@ import {Link} from "react-router";
 export function ListURLS() {
 
     const [urls, setUrls] = useState<URLSResponse[]>([]);
-    const [itemToDelete, setItemToDelete] =
-        useState<URLSResponse | null>(null);
+    const [itemToDelete, setItemToDelete] = useState<URLSResponse | null>(null);
+    const [error, setError] = useState<String>("");
 
     async function getURLs() {
         try {
@@ -18,10 +18,15 @@ export function ListURLS() {
             setUrls(response);
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error("API error:", error.response?.data);
-                console.error("Status:", error.response?.status);
+                if (error.response?.status === 503) {
+                    setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+                } else {
+                    setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                }
             } else {
-                console.error("Unexpected error:", error);
+                // Non-Axios error (e.g. a JS runtime error)
+                setError("An unexpected error occurred.");
+                console.error(error);
             }
         }
     }
@@ -37,10 +42,15 @@ export function ListURLS() {
             getURLs();
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error("API error:", error.response?.data);
-                console.error("Status:", error.response?.status);
+                if (error.response?.status === 503) {
+                    setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+                } else {
+                    setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                }
             } else {
-                console.error("Unexpected error:", error);
+                // Non-Axios error (e.g. a JS runtime error)
+                setError("An unexpected error occurred.");
+                console.error(error);
             }
         }
     }
@@ -92,6 +102,9 @@ export function ListURLS() {
                     <h3>There are No URLS to get. Please request a URL to be shortened by the Home page.</h3>
                 </div>
                 }
+                {error && (
+                    <p className="mt-2 text-sm text-red-400">{error}</p>
+                )}
                 {itemToDelete && (
                     <ConfirmDeleteModal
                         item={itemToDelete}
