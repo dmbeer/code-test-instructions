@@ -16,7 +16,7 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
                        val mongoClient: MongoClient) {
 
     fun shortenURL(fullURL: String, alias: String): String {
-        val ktorhost = environment.config.property("ktor.deployment.host").getString()
+        val ktorhost = environment.config.property("urlshortener.host").getString()
         val port = environment.config.property("ktor.deployment.port").getString().toInt()
         val baseUrl = "$ktorhost:$port"
         var shortened = ""
