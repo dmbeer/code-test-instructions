@@ -24,7 +24,7 @@ export function TextInput({
     return (
         <div className="flex flex-col gap-1 w-full">
             {label && (
-                <label className="text-sm font-medium text-gray-300">
+                <label className="text-sm font-medium text-gray-500">
                     {label}
                     {required && <span className="text-red-500 ml-1">*</span>}
                 </label>

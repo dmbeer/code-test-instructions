@@ -1,6 +1,6 @@
 # URL Shortener
 
-This a simple url shortener front and backend service storing requests in a mongodb database.
+This a simple URL Shortener front and backend service storing requests in a mongodb database.
 You will be able to provide a long url to shorten. You can use a custom alias as well. 
 You can delete your requests.
 
@@ -10,17 +10,17 @@ Make sure Docker is Installed
 open a terminal and run docker compose up --build -d
 
 This will build and launch 3 containers. 
-1. MongoDB 8 comunity and create a volume local to the project for storing data. This will setup a replica set locally as the code uses transactions which require this.
+1. MongoDB 8 community and create a volume local to the project for storing data. This will set up a replica set locally as the code uses transactions which require this.
 2. A frontend accessible at localhost:3000
 3. A backend API written in kotlin using ktor running at localhost:8080
 
 ### Frontend Usage
 
-I have tried to make the colurs work on light and dark.
+I have tried to make the colours work on light and dark.
 
    <img width="866" height="680" alt="Screenshot 2026-02-27 at 10 20 00" src="https://github.com/user-attachments/assets/16e78b9d-c2a9-4348-b478-fb7007fd400a" />
 
-   Simply enter a long url in the text box and click the Shorten URL button. You will then see a shortened URL appear below.
+   Simply enter a long url in the text box, you can provide an alias between 3 and 20 characters and click the Shorten URL button. You will then see a shortened URL appear below.
 
    <img width="866" height="778" alt="Screenshot 2026-02-27 at 10 22 21" src="https://github.com/user-attachments/assets/eea21b76-4501-44c0-bce4-005085e475f6" />
 
