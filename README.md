@@ -18,6 +18,7 @@ This will build and launch 3 containers.
 1. MongoDB 8 community and create a volume local to the project for storing data. This will set up a replica set locally as the code uses transactions which require this.
 2. A frontend accessible at localhost:3000
 3. A backend API written in kotlin using ktor running at localhost:8080
+4. The domain of the resolved URL can be configured either in the properties urlshortener.domain in the application.yaml
 
 ### Frontend Usage
 
@@ -37,9 +38,9 @@ I have tried to make the colours work on light and dark.
 
 ### Backend API
 
-I used HTTPie to test the response. 
+I used HTTPie to test the response. And a series of Unit Tests.
 
-You can use the endpoints as listed in the openapi.yaml file.
+You can use the endpoints as listed in the openapi.yaml file. There is an additional /health endpoint that checks if the MongoDB database is up and connected.
 
 The backend is built using kotlin and ktor for a quick and lightwieight server. 
 Full validation and API Error Handling has been added. Certain database actions have been wrapped in a transaction for safety and consistentency of data.
@@ -51,5 +52,17 @@ There are a number of Tests as well to cover the functionality.
 <img width="795" height="454" alt="Screenshot 2026-02-27 at 10 33 48" src="https://github.com/user-attachments/assets/3641a871-1c64-486f-8b5d-b672eb0521ea" />
 
 
+# Notes
+
+## Constraints on generating an shortened URL
+
+1. You must enter a valid http or https URL
+   1. Note http://ggghhds/gggh is valid although may not point to anything. This is the same behaviour as https://tinyurl.com/
+   2. It must start with http:// or https:// 
+2. If you provide an Alias this must be between 3 and 20 characters
+
+## Error messages
+
+They follow what is listed in the openapi.yaml file. For generating a URL they are listed underneath where the shortened URL would be displayed.
 
 
