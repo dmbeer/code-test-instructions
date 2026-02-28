@@ -16,16 +16,14 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
                        val mongoClient: MongoClient) {
 
     fun shortenURL(fullURL: String, alias: String): String {
-        val ktorhost = environment.config.property("urlshortener.host").getString()
-        val port = environment.config.property("ktor.deployment.port").getString().toInt()
-        val baseUrl = "$ktorhost:$port"
+        val domain = environment.config.property("urlshortener.domain").getString()
         var shortened = ""
         if (alias.isEmpty()) {
             val alias: String = generateRandomString()
             if (urlRequestsRepository.findByAlias(alias) == null && urlRequestsRepository.findByFullUrl(fullURL) == null) {
                 shortened = URLBuilder().apply {
                     protocol = URLProtocol.HTTP
-                    host = baseUrl
+                    host = domain
                     path("/$alias")
                 }.buildString()
                 urlRequestsRepository.insertOne(UrlRequests(null, fullURL, alias, shortened))
@@ -42,7 +40,7 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
                     session.startTransaction()
                     shortened = URLBuilder().apply {
                         protocol = URLProtocol.HTTP
-                        host = baseUrl
+                        host = domain
                         path("/$alias")
                     }.buildString()
                     urlRequestsRepository.insertOne(session, UrlRequests(null, fullURL, alias, shortened))

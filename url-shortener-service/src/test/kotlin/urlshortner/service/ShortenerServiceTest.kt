@@ -53,8 +53,7 @@ class ShortenerServiceTest {
         every { customAliasRepository.deleteByAlias(session, any()) } returns true
 
         //environment stubs
-        every { mockEnv.config.property("ktor.deployment.host").getString() } returns "localhost"
-        every { mockEnv.config.property("ktor.deployment.port").getString() } returns "8080"
+        every { mockEnv.config.property("urlshortener.domain").getString() } returns "localhost:8080"
         baseUrl = "http://localhost:8080"
 
         TestModules.extraModules = listOf(

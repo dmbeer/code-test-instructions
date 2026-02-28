@@ -8,4 +8,4 @@ ktor:
         uri: ${MONGO_URI:mongodb://localhost:27017/?replicaSet=rs0&directConnection=true}
         database: url-shortener
 urlshortener:
-    host: localhost
+    domain: localhost:8080
