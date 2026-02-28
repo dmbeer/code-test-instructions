@@ -1,4 +1,4 @@
-package urlshortner.routes
+package urlshortener.routes
 
 import com.example.urlshortner.TestModules
 import com.example.urlshortner.model.mongodb.CustomAlias

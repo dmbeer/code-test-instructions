@@ -1,4 +1,4 @@
-rootProject.name = "url-shotner"
+rootProject.name = "url-shortener"
 
 dependencyResolutionManagement {
     repositories {
