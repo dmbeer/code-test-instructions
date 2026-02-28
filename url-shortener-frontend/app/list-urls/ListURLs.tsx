@@ -20,9 +20,9 @@ export function ListURLS() {
             if (!signal) {
                 if (axios.isAxiosError(error)) {
                     if (error.response?.status === 503) {
-                        setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+                        setError( "Service unavailable, please try again later.");
                     } else {
-                        setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                        setError(error.response?.data ?? "Something went wrong, please try again.");
                     }
                 } else {
                     // Non-Axios error (e.g. a JS runtime error)
@@ -47,9 +47,9 @@ export function ListURLS() {
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status === 503) {
-                    setError(error.response.data?.error ?? "Service unavailable, please try again later.");
+                    setError("Service unavailable, please try again later.");
                 } else {
-                    setError(error.response?.data?.message ?? "Something went wrong, please try again.");
+                    setError(error.response?.data ?? "Something went wrong, please try again.");
                 }
             } else {
                 // Non-Axios error (e.g. a JS runtime error)
