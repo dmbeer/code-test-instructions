@@ -77,7 +77,7 @@ class ShortenerServiceTest {
 
     @Test
     fun `Shorten Full URL with custom alias`() {
-        every { customAliasRepository.findByAlias(any()) } returns null
+        every { urlRequestsRepository.findByAlias(any()) } returns null
         val shortenedUrl = shortenerService.shortenURL("https://example.com/long-url", "my-custom-alias")
         assertNotEquals("https://example.com/long-url", shortenedUrl)
         assertEquals("http://localhost:8080/my-custom-alias", shortenedUrl)
@@ -94,7 +94,7 @@ class ShortenerServiceTest {
 
     @Test
     fun `Shorten Full URL with backslash in url with alias`() {
-        every { customAliasRepository.findByAlias(any()) } returns null
+        every { urlRequestsRepository.findByAlias(any()) } returns null
         val shortenedUrl = shortenerService.shortenURL("https://example.com/long/url", "job")
         assertNotEquals("https://example.com/long/url", shortenedUrl)
         assertEquals(baseUrl, shortenedUrl.substringBeforeLast('/'))
@@ -126,7 +126,9 @@ class ShortenerServiceTest {
 
     @Test
     fun `Custom Alias already used should return empty shortened url`() {
-        every { customAliasRepository.findByAlias(any()) } returns CustomAlias(
+        every { urlRequestsRepository.findByAlias(any()) } returns UrlRequests(
+            fullUrl = "https://example.com/long-url",
+            shortUrl = "http://localhost:8080/eRD78",
             alias = "eRD78",
         )
         val shortenedUrl = shortenerService.shortenURL("https://example.com/long-url", "eRD78")

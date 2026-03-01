@@ -155,7 +155,7 @@ class ShortenRoutesTest {
             appModule()
         }
         val client = createClient { install(ContentNegotiation) { json() } }
-        every { customAliasRepositoryMock.findByAlias(any())} returns null
+        every { urlRequestsRepositoryMock.findByAlias(any())} returns null
         val response = client.post("/shorten") {
             contentType(ContentType.Application.Json)
             setBody(URLShortRequest("https://example.com/long/url", "job"))
@@ -173,7 +173,9 @@ class ShortenRoutesTest {
             appModule()
         }
         val client = createClient { install(ContentNegotiation) { json() } }
-        every { customAliasRepositoryMock.findByAlias(any())} returns CustomAlias(
+        every { urlRequestsRepositoryMock.findByAlias(any())} returns UrlRequests(
+            fullUrl = "http://example.com/long/url",
+            shortUrl = "http://localhost:8080/job",
             alias = "job",
         )
         val response = client.post("/shorten") {

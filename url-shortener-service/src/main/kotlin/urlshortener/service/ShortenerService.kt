@@ -33,7 +33,7 @@ class ShortenerService(val urlRequestsRepository: UrlRequestsRepository,
                 }
             }
         } else {
-            if (customAliasRepository.findByAlias(alias) == null) {
+            if (urlRequestsRepository.findByAlias(alias) == null) {
                 val session = mongoClient.startSession()
                 var commited = false
                 try {
